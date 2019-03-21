@@ -30,8 +30,10 @@ const PeopleListRow = (props: Props) => {
     <Row isChecked={isChecked} >
       <CellWrapper>
         <Cell
-          style={{ width: '25px', margin: '20px 24px 20px 0' }}
-          smallScreenWidth={'25px'}>
+          width={'25px'}
+          margin={'20px 24px 20px 0'}
+          smallScreenWidth={'25px'}
+          smallScreenMargin={'20px 24px 20px 0'}>
           <Checkbox
             id={id}
             name={id}
@@ -46,21 +48,21 @@ const PeopleListRow = (props: Props) => {
           {name}
         </NameCell>
       </CellWrapper>
-      <CellWrapper smallScreenFlexDirection='column' smallScreenHeight={'200px'}>
+      <CellWrapper smallScreenFlexDirection={'column'} smallScreenHeight={'200px'}>
         <Cell
           isChecked={isChecked}>
           {gender || '-'}
         </Cell>
-        <Cell isChecked={isChecked} style={{ width: '115px' }}>
+        <Cell isChecked={isChecked} width={'115px'}>
           {birthday ? handleBirthday(birthday) : '-'}
         </Cell>
-        <Cell isChecked={isChecked} style={{ width: '115px' }}>
+        <Cell isChecked={isChecked} width={'115px'}>
           {countryName || '-'}
         </Cell>
-        <Cell isChecked={isChecked} style={{ width: '150px' }}>
+        <Cell isChecked={isChecked} width={'150px'}>
           {timeZone || '-'}
         </Cell>
-        <Cell isChecked={isChecked} style={{ width: '50px' }}>
+        <Cell isChecked={isChecked} width={'50px'}>
           {id || '-'}
         </Cell>
       </CellWrapper>
@@ -90,8 +92,8 @@ const Cell = styled.span`
   font-size: 13px;
   line-height: 20px;
   text-align: center;
-  margin: 20px 24px 20px 0;
-  width: 70px;
+  margin: ${({ margin }) => margin || '20px 24px 20px 0'};
+  width: ${({ width }) => width || '70px'};
   color: ${({ isChecked }) => isChecked ? styleConstants.mainTextColor : styleConstants.secondaryTextColor};
   
   @media all and (max-width: 992px) {
