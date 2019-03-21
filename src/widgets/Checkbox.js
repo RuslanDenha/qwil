@@ -86,11 +86,10 @@ const CompositeCheckboxContainer = styled.label`
     display: block;
   }
   ${Checkmark}:after {
-    left: 5.25px;
-    top: 1.25px;
-    width: 4px;
-    height: 8px;
-    border-radius: 2px;
+    left: 6px;
+    top: 2.5px;
+    width: 3px;
+    height: 7px;
     border-bottom: 2px solid white;
     border-right: 2px solid white;
     transform: rotate(45deg);
