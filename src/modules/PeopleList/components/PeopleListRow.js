@@ -38,7 +38,7 @@ const PeopleListRow = (props: Props) => {
             onCheck={handleCheck}
             checked={isChecked} />
         </Cell>
-        <Photo src={photoUrl} />
+        <Photo photoUrl={photoUrl} />
         <NameCell
           smallScreenWidth={'166px'}
           smallScreenMargin={'20px 0 20px'}
@@ -130,9 +130,11 @@ const CellWrapper = styled.span`
   }
 `
 
-const Photo = styled.img`
+const Photo = styled.div`
   width: 26px;
   height: 26px;
+  background-image: url(${({ photoUrl }) => photoUrl || ''});
+  background-size: 26px 36.6px;
   border-radius: 26px;
   margin: 17px 10px 17px 0;
 `
