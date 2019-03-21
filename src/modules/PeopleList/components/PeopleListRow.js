@@ -82,7 +82,8 @@ const Row = styled.div`
   justify-content: space-between;
   
   &:hover {
-    box-shadow: 0 2px 10px ${styleConstants.lightGreyColor};
+    position: relative;
+    box-shadow: 0 3px 3px ${styleConstants.lightGreyColor};
     cursor: pointer;
   }
   
