@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { loadPeople } from '../actions'
+import { loadPeople, setQuery } from '../actions'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import PeopleListTable from './PeopleListTable'
@@ -15,11 +15,13 @@ type Props = {
   peopleList: ?Array<Object>,
   /** Action for loading people list */
   loadPeople: typeof loadPeople,
+  /** Value to request list of people */
+  query: string,
+  /** Set query parameter */
+  setQuery: typeof setQuery
 }
 
 type State = {
-  /** Value to request list of people */
-  searchText: string,
   /** List of selected people */
   selectedPeople: Array<normalizedPerson>,
   /** Timer to prevent frequent requests */
@@ -31,7 +33,6 @@ class PeopleListPage extends Component<Props, State> {
     super(props)
 
     this.state = {
-      searchText: '',
       selectedPeople: [],
       typingTimer: 0
     }
@@ -39,13 +40,13 @@ class PeopleListPage extends Component<Props, State> {
 
   handleSearch = (e: Object) => {
     if (this.state.typingTimer) {
-      clearTimeout(this.state.typingTimer);
+      clearTimeout(this.state.typingTimer)
     }
 
+    this.props.setQuery(e.target.value)
     this.setState({
-      searchText: e.target.value,
       selectedPeople: [],
-      typingTimer: setTimeout(() => this.props.loadPeople(this.state.searchText), 500)
+      typingTimer: setTimeout(() => this.props.loadPeople(this.props.query), 500)
     })
   }
 
@@ -62,15 +63,14 @@ class PeopleListPage extends Component<Props, State> {
   }
 
   render () {
-    const { peopleList } = this.props
-    const { searchText } = this.state
+    const { peopleList, query } = this.props
     const isPeopleListArray = Array.isArray(peopleList)
 
     return (
       <Wrapper>
         <Input
           placeholder={constants.INPUT_PLACEHOLDER}
-          value={searchText}
+          value={query}
           onChange={e => this.handleSearch(e)} />
         {isPeopleListArray && <PeopleListTable
           handleCheck={this.handleCheck}
@@ -84,11 +84,13 @@ class PeopleListPage extends Component<Props, State> {
 }
 
 const mapStateToProps = state => ({
-  peopleList: state.people.response
+  peopleList: state.people.response,
+  query: state.people.query
 })
 
 const mapDispatchToProps = {
-  loadPeople
+  loadPeople,
+  setQuery
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeopleListPage)
