@@ -25,7 +25,7 @@ type State = {
   /** List of selected people */
   selectedPeople: Array<normalizedPerson>,
   /** Timer to prevent frequent requests */
-  typingTimer: number
+  typingTimer: any
 }
 
 class PeopleListPage extends Component<Props, State> {
