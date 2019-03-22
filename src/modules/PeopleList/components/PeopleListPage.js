@@ -22,6 +22,8 @@ type State = {
   searchText: string,
   /** List of selected people */
   selectedPeople: Array<normalizedPerson>,
+  /** Timer to prevent frequent requests */
+  typingTimer: number
 }
 
 class PeopleListPage extends Component<Props, State> {
@@ -30,15 +32,21 @@ class PeopleListPage extends Component<Props, State> {
 
     this.state = {
       searchText: '',
-      selectedPeople: []
+      selectedPeople: [],
+      typingTimer: 0
     }
   }
 
   handleSearch = (e: Object) => {
+    if (this.state.typingTimer) {
+      clearTimeout(this.state.typingTimer);
+    }
+
     this.setState({
       searchText: e.target.value,
-      selectedPeople: []
-    }, () => this.props.loadPeople(this.state.searchText))
+      selectedPeople: [],
+      typingTimer: setTimeout(() => this.props.loadPeople(this.state.searchText), 500)
+    })
   }
 
   handleCheck = (person: normalizedPerson) => {
